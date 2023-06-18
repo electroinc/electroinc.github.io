@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Homepage</title>
+<link rel="stylesheet" href="electroinc.css">
+<link href="http://fonts.cdnfonts.com/css/negative-tuning" rel="stylesheet">
+</head>
+
+<body>
+
+<iframe src="zapsound.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio autoplay>
+    <source src="zapsound.mp3" type="audio/mp3">
+</audio>
+
+	<div class="header">
+	<div class="card">
+		<image class="titleimage1" src="electricity.gif" title="ELECTRICITY" />
+		<h1>Electroinc</h1>
+		<image class="titleimage2" src="electricity.gif" title="MORE ELECTRICITY" />
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="cardslim">
+	<image src="homegif.gif" title="HOME">
+	</div>
+	</div>
+	
+	<div class="row">
+		<div class="column left">
+		<div class="card">
+
+
+			<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="projects.asp">Projects</a></li>
+			<li><a href="tutorials.asp">Tutorials</a></li>
+			<li><a href="other.asp">Other</a></li>
+			<li><a href="updates.asp">Updates</a></li>
+			</ul>
+		</div>
+		</div>
+
+		<div class="column right">
+		<div class="card">
+			<p>Info.</p>
+		</div>
+	</div>
+	
+	<div class="footer">
+
+	</div>
+
+</body>
+</html>
+

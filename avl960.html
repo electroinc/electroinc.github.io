@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>AVL Technologies Model 960 Antenna</title>
+<link rel="stylesheet" href="electroinc.css">
+<link href="http://fonts.cdnfonts.com/css/negative-tuning" rel="stylesheet">
+</head>
+
+<body>
+
+<iframe src="zapsound.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio autoplay>
+    <source src="zapsound.mp3" type="audio/mp3">
+</audio>
+
+	<div class="header">
+	<div class="card">
+		<image class="titleimage1" src="electricity.gif" title="ELECTRICITY" />
+		<image src="title.png" />
+		<image class="titleimage2" src="electricity.gif" title="MORE ELECTRICITY" />
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="cardslim">
+	<h2>Teardown and Reuse of an AVL Technologies Model 960 Antenna</h2> <!-- cooltext.com laserian aab size 70 colour #6FFF00 flame angle 0 -->
+	</div>
+	</div>
+	
+	<div class="row">
+		<div class="column left">
+		<div class="card">
+
+
+			<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="projects.html">Projects</a></li>
+			<li><a href="tutorials.html">Tutorials</a></li>
+			<li><a href="other.html">Other</a></li>
+			<li><a href="updates.html">Updates</a></li>
+			<li><a href="links.html">Links</a></li>
+			</ul>
+		</div>
+		</div>
+
+		<div class="column right">
+		<div class="card">
+			<p>I have been quite busy with this system. The story begins when I was browsing Ebay and came across this unit for sale at a fairly reasonable price. 
+			Never one to shy away from getting a good deal, I offered a very cheek £40 offer, which was accepted by the seller. After taking my prize home, and using 
+			the mechanical cranks to test elevation, azimuth and rotation control, I was extremely happy to find that everything appeared, at the very least, safe. I 
+			was now confident in further exploring how to reuse this antenna system, primarily for the positioning ability - I was no longer interested in mearly disassembly, 
+			I wanted to re-use the system for future projects which may require the need to accurately position a (relatively) large antenna system. Figure 1 shows the 
+			fully errected antenna system, prior to me removing the dish and RF components (allowing for easier repositioning of the setup). Figure 2 shows how tight 
+			storage was.</p>
+			
+			<a href="AVL960.jpg"  target="_blank">
+			<img src="AVL960.jpg" height=200 title="An AVL model 960 in fully deployed configuration."></a>
+			<p>Figure 1: Errected AVL Technologies Model 960 antenna.</p>
+			
+			<a href="AVL960stowed.jpg"  target="_blank">
+			<img src="AVL960stowed.jpg" height=200 title="An AVL model 960 in stowed configuration"></a>
+			<p>Figure 2: Stowed AVL Technologies Model 960 antenna. Only just enough room to fit that 96cm dish.</p>
+			
+			<p>The AVL Technologies Model 960 is described in their own literature as allowing "non-skilled personell" to operature Very Small Aperature Terminal (VSAT)
+			satellite communications equipment [1]. In practice, this means it is often used for television and other high-speed satellite communications. Whilst I 
+			did not have any other ground station equipment, I was hoping it would be rather easy to determine how to use the existing hardware to control the system. I 
+			approached AVL Technologies in good faith, asking if they had any documentation they'd be able to share. Unfortunately, AVL Technologies ignored me completely. 
+			I can't say I'm surprised, but still - screw you. I only wanted to use my unit to position an antenna, now you've made me reverse engineer the whole thing.</p.>
+
+			<p>Through examining other literature I managed to scrape from various sources [2, 3, 4], I determined the unit required a 24VDC input power supply, as well as 
+			a couple of communication lines. Maybe this is as simple as a few serial lines, but I am not that enamoured with the idea to figuring out software protocols. As a 
+			result, I made the decision to proceed with reverse engineering the hardware, dumping any firmware I come across, but with the view to implementing my own hardware 
+			for ease of future use. I do not fancy investing lots of time in reverse engineering communication protocols to find out it limits what I'd like to do with the 
+			system. By reverse engineering the existing hardware and firmware, I intend to educate myself and others on the various aspects on mechatronic design found within
+			VSAT systems.</p>
+			
+			<p>In order to make it easier and safer to move and reverse engineer, I elected to remove the RF components of the system. I am not wanting to use the dish for 
+			any projects in the near future, and I would probably seek to create my own RF hardware even if I were. All RF links were made using Type F connectors - an industry 
+			standard within satellite TV and cable modems, but I do not use them at all in my projects (much prefering the robustness of BNC, SMA, and N-type). This, coupled with 
+			the very tangled and hard to access nature of the RF cabling, meant I decided to simply cut out most of the RF hardware. Components will be more useful with my 
+			own RF connectors. The reduced setup is shown in a +90 degree elevation configuration in figure 3. </p>
+			
+			<a href="AVL960reduced.jpg"  target="_blank">
+			<img src="AVL960reduced.jpg" height=200 title="An AVL model 960 without the dish and RF components."></a>
+			<p>Figure 3: The reduced positioner setup. Note I have also removed the controller enclosure in this picture.</p>
+			
+			<p>The natural first point of call to reverse engineer is the controller hardware - labelled Tracstar. This is a large unit, containing five PCBs, interfacing with 
+			an external control system, as well as a variety of sensors and motors on the model 960. Figure 4 shows the external connections, made on a 'external PCB', whilst figure 
+			5 shows the internals of the enclosure as it is opened. To give credit, the unit has held up extremely well, with no signs of water or dirt ingress.</p>
+			
+			<a href="AVL960PCBexternal.jpg"  target="_blank">
+			<img src="AVL960PCBexternal.jpg" height=200 title="External Tracstar unit connections"></a>
+			<p>Figure 4: Connections to the external PCB. Note, not all connection points are used.</p>
+			
+			<a href="AVL960PCBenclosure.jpg"  target="_blank">
+			<img src="AVL960PCBenclosure.jpg" height=200 title="PCBs within the Tracstar unit"></a>
+			<p>Figure 5: The first layer of PCBs within the Tracstar unit. Very clean indeed. Note, I have removed potentially identifying ID numbers.</p>
+			
+			<p>The unit is rather complex, with a large number of switches, sensors and motors. Please consult figure 6 for a diagram of inter-PCB connections.</p>
+	
+			<a href="Model960Interconnections.jpg"  target="_blank">
+			<img src="Model960Interconnections.jpg" height=200 title="Diagram of interconnections within the Model 960"></a>
+			<p>Figure 6: Interconnection diagram for the AVL Technologies Model 960. This diagram will be updated with more information in due course. I do not take 
+			any responsibility for anything that may happen as a result of using this information presented here or on any part of this website. Please ensure you 
+			understand your system well before relying on any information presented.</p>
+			
+			<p>The next step is to reverse engineer the individual PCBs. There are very few identifying features or descriptions on the PCBs, as a result I have had 
+			to rely on my own interpretation and labelling scheme for parts, but I have tried to remain faithful to these devices. These PCBs must have been 
+			designed on a off-day at AVL Technologies - they are functional, but contain many examples of poor PCB design. Maybe the PCB layout was the responsibility 
+			of an intern, and they weren't checked by an experienced engineer... More to follow in that regard.</p>
+			
+			<p>I started with reverse engineering the "external PCB". Removed from the enclosure, it is shown in figures 7 and 8.</p>
+			
+			<a href="AVL960PCBexternaltopcomponents.jpg"  target="_blank">
+			<img src="AVL960PCBexternaltopcomponents.jpg" height=200 title="External PCB top, fully populated with components"></a>
+			<p>Figure 7: Top view of the external PCB, will all components. Note, I have removed potentially identifying ID numbers.</p>
+			
+			<a href="AVL960PCBexternalbottomcomponents.jpg"  target="_blank">
+			<img src="AVL960PCBexternalbottomcomponents.jpg" height=200 title="External PCB bottom, fully populated with components"></a>
+			<p>Figure 8: Bottom view of the external PCB, will all components. Note, I have removed potentially identifying ID numbers.</p>
+			
+			<p>The following figures, 9 and 10, show the external PCB will all components removed. Removing each component allowed me to determine values of non-marked 
+			components such as capacitors, and also allowed quick and reliable reverse engineering of the PCB. This was a useful learning experience, and the following 
+			images demonstrate the clarity to be gained from component removal. Of course, this can be risky if you do not have a sensible place to store components, as 
+			one stray sneeze can remove any hope of ever reconstructing the device.</p>
+			
+			<a href="AVL960PCBexternaltopnocomponents.jpg"  target="_blank">
+			<img src="AVL960PCBexternaltopnocomponents.jpg" height=200 title="External PCB bottom, with no components"></a>
+			<p>Figure 8: Top view of the external PCB, will no components.</p>
+			
+			<a href="AVL960PCBexternalbottomnocomponents.jpg"  target="_blank">
+			<img src="AVL960PCBexternalbottomnocomponents.jpg" height=200 title="External PCB bottom, with no components"></a>
+			<p>Figure 8: Bottom view of the external PCB, will no components.</p>
+			
+			<p>From these clean PCBs, I constructed the circuit diagram in [5]. Please take the time to review my work, and give feedback for me to improve both schematic 
+			design and layout, as well as circuit layout logic. I must admit that most of this design was quite simple, but there is always room for improvement.</p>
+			
+			<p>One interesting component was the xxx, a clinometer produced by xxxx. This device consists of a 5 thin metallic rods within a small sealed chamber filled 
+			with a dielectric liquid. As the device is tilted in space, a differing proportion of each leg is capacitively coupled through the dielectric as it sloshes 
+			around. By applying an AC signal, one can determine the capacitance between a give rod-pairing, and therefore deduce its tilt with remarkable accuracy. I 
+			suspect this sensor is used to determine the tilt of the antenna poisitioner mount, given the fixed position on the external PCB. I will explore how this 
+			clinometer may be used in conjunction with another (much more expensive device) in the elevation unit.</p>
+			
+			<p>TBC...</p>
+
+			<h2>REFERENCES</h2>
+			<a href="MVS960 Flyer.pdf">[1] Commercial flyer for the MVS960 System</a><br>
+			<a href="96Ku_MVSAT.pdf">[2] Commercial flyer for the MVS960 System</a><br>
+			<a href="Model 960 Technical Support Training Book.pdf">[3] Model 960 Technical Support Training Book</a><br>
+			<a href="MVS Operating Instructions.pdf">[4] Model 960 Operating Instructions</a><br>
+			<a href="Model 960 External PCB.pdf">[5] Model 960 External PCB Schematics</a><br>
+		</div>
+		
+	</div>
+	
+	<div class="footer">
+	<p>You can use the information on this website at your own risk. I take <span style="color: red"> no responsibility </span> for damage/harm that results from copying info 
+	from this websites. Companies/organisations are not allowed to use anything from this website to make money/clicks/increase profile,etc.</p>
+	</div>
+
+</body>
+</html>
+

@@ -1,0 +1,125 @@
+body {
+	background-color: black;
+	background-image: url("background.jpeg");
+	font-size: 100%;
+}
+
+h1 {
+	color: #cc9900;
+	margin-left: 20px;
+	font-family: 'Negative Tuning', sans-serif;
+	font-size: 6em;
+	display: inline;
+}
+
+h2 {
+	color: #cc9900;
+	font-family: 'Negative Tuning', sans-serif;
+	font-size: 2em;
+	text-align: center;
+}
+
+td {
+	color: white;
+	padding: 15px;
+}
+
+
+p {
+	color: white;
+}
+
+ *{
+	box-sizing: border-box;
+}
+
+ul {
+  list-style-type: circle;
+  color: white;
+}
+
+.header {
+	text-align: center;
+	padding: 20px;
+}
+
+.titleimage1 {
+	float: left;
+
+}
+
+.titleimage2 {
+	float: right;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.column {
+	vertical-align: text-top;
+	float: left;
+	padding: 10px;
+}
+
+.left {
+	font-family: 'Comic Sans MS';
+	border-style: double;
+	border-color: white;
+	width: 15%;
+}
+
+.right {
+	border-style: double;
+	border-color: white;
+	width: 85%;
+}
+
+.cardslim {
+	background-color: black;
+}
+
+.card {
+	background-color: black;
+	border-style: outset;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.footer {
+	text-align: center;
+	background-color: black;
+}
+
+a:link {
+  color: darkorange;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+

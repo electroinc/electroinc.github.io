@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Keysight/Agilent/HP E3631A Programming</title>
+<link rel="stylesheet" href="electroinc.css">
+<link href="http://fonts.cdnfonts.com/css/negative-tuning" rel="stylesheet">
+</head>
+
+<body>
+
+<iframe src="zapsound.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio autoplay>
+    <source src="zapsound.mp3" type="audio/mp3">
+</audio>
+
+	<div class="header">
+	<div class="card">
+		<image class="titleimage1" src="electricity.gif" title="ELECTRICITY" />
+		<image src="title.png" />
+		<image class="titleimage2" src="electricity.gif" title="MORE ELECTRICITY" />
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="cardslim">
+	<h2>Keysight/Agilent/HP E3631A Programming</h2> 
+	</div>
+	</div>
+	
+	<div class="row">
+		<div class="column left">
+		<div class="card">
+
+
+			<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="projects.html">Projects</a></li>
+			<li><a href="tutorials.html">Tutorials</a></li>
+			<li><a href="other.html">Other</a></li>
+			<li><a href="updates.html">Updates</a></li>
+			<li><a href="links.html">Links</a></li>
+			</ul>
+		</div>
+		</div>
+
+		<div class="column right">
+		<div class="card">
+			<p>The Keysight/Agilent/HP E3631A power supply, shown in Figure 1, has three outputs: +6V at 5A, and +-25V at 1A. It is perfectly usable as a standalone benchtop power supply, using the front-panel buttons and rotary encoder to control the outputs. However, it may also be controlled by a remote computer - either through a General Purpose Interface Bus (GPIB) or through RS232. This tutorial will describe how to control the E3631A through a RS232 connection using the Python programming language. In the future, this tutorial may be expanded to include GPIB and/or other languages.</p>
+			
+			<a href="e3631a.jpg"  target="_blank">
+			<img src="e3631a.jpg" height=200 title="Front view of the HP E3631A"></a>
+			<p>Figure 1: Front view of my specific HP E3631A. This tutorial is compatible with all brands of E3631A at time of writing.</p>
+			
+			<h2>E3631A Python Module</h2>
+			<p>To facilitate the easy development of scripts, I have created the e3631a.py module, which may be downloaded from [2].  This module contains two simple functions - sendscpi and readscpi. These function as follows:</p>
+			<p>writescpi(port,command) - port: takes the name of the serial port, in string format. command: takes the SCPI command (see instrument user manual) to be sent to the instrument, in string format.</p>
+			<p>readscpi(port) - port: takes the name of the serial port, in string format.</p>
+			
+			<h2>Example</h2>
+			<p>The Python script e3631ameasuretest.py [3] provides a simple example of the module in use.</p>
+			<p>It begins by initialising the serial port to which the E3631A is connected. The instrument's ID is requested and should be printed on the console. Next the instrument is put into remote mode through the use of the SYST:REM command. This is crucial, otherwise you will not be able to fully interface with the instrument through your serial connection.</p>
+			<p>At this stage, the script is ready to be used in any way the author sees fit. In this instance, the instrument sweeps through a number of voltages on the positive 25 Volt port, measuring the current and printing the results to the console. The output for this specific script is:</p>
+			<p>IDN of ps1: HEWLETT-PACKARD,E3631A,0,1.6-5.0-1.0</br>
+			Current at 0V: -1.14548900E-03</br>
+			Current at 1V: -1.12009500E-03</br>
+			Current at 2V: -1.11556000E-03</br>
+			Current at 3V: -1.09470000E-03</br>
+			Current at 4V: -1.06023500E-03</br>
+			Current at 5V: -1.04391000E-03</p>
+			
+			<p>Note that general commands, such as to measure current (MEAS:CURR?), apply to the port which was last selected through the INST command. In order to select the +25V port, INST P25V was sent (line 49). In such a circumstance where another port needed to be controlled, one would have to specify that port to command it, before again sending INST P25V to regain control of the +25V port.</p>
+			<p>Finally, the serial port is closed (line 64). It is important to do this, otherwise the port may not respond when used by other applications. If your Python script stops during execution (say, as the result of an error), then the port may still be open. In this case you will need to close and restart your IDE to close the serial port.</p>
+			
+			<h2>Writing the Results to a File</h2>
+			<p>It is all well and good to receive measurements from automated setup as above, but it is more useful to write the measurements to a file for later processing (in equations, into plots, etc). e3631asavetofile.py [4] shows one way to do this. The serial port is opened, ID retrieved, and the instrument put into remote mode as before. This time, an array is created to store the IDN, date and time of the measurement start and stop, and document the voltage and current. Csvwriter is then used to write this array to a .csv file. The output from this script is given in [5].</p>
+			
+			<h2>Conclusion</h2>
+			<p>A short, simple module has been presented to facilitate the easy scripting of automated measurements using the E3631A power supply. Furthermore, a means of storing measurements in a convenient format has been shown. In the future, GPIB control using Python will also be investigated.</p>
+			<p>v1.0: 12/02/22</p>
+			<h2>REFERENCES</h2>
+			<a href="E3631A User Manual.pdf">[1] E3631A User Manual</a><br>
+			<a href="e3631a.py" download>[2] e3631a.py</a><br>
+			<a href="e3631ameasuretest.py" download>[3] e3631ameasuretest.py</a><br>
+			<a href="e3631asavetofile.py" download>[4] e3631asavetofile.py</a><br>
+			<a href="e3631a_test_file.csv" download>[5] e3631_test_file.csv</a><br>	
+		
+		</div>
+	</div>
+	
+	<div class="footer">
+	<p>You can use the information on this website at your own risk. I take <span style="color: red"> no responsibility </span> for damage/harm that results from copying info 
+	from this websites. Companies/organisations are not allowed to use anything from this website to make money/clicks/increase profile,etc.</p>
+	</div>
+
+</body>
+</html>
+
