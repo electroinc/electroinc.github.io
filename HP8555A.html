@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Repair of a HP 8555A</title>
+<link rel="stylesheet" href="electroinc.css">
+<link href="http://fonts.cdnfonts.com/css/negative-tuning" rel="stylesheet">
+</head>
+
+<body>
+
+<iframe src="zapsound.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio autoplay>
+    <source src="zapsound.mp3" type="audio/mp3">
+</audio>
+
+	<div class="header">
+	<div class="card">
+		<image class="titleimage1" src="electricity.gif" title="ELECTRICITY" />
+		<image src="title.png" />
+		<image class="titleimage2" src="electricity.gif" title="MORE ELECTRICITY" />
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="cardslim">
+	<h2>Repair of a Hewlett Packard 8555A Spectrum Analyser RF Section</h2> <!-- cooltext.com laserian aab size 70 colour #6FFF00 flame angle 0 -->
+	</div>
+	</div>
+	
+	<div class="row">
+		<div class="column left">
+		<div class="card">
+
+
+			<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="projects.html">Projects</a></li>
+			<li><a href="tutorials.html">Tutorials</a></li>
+			<li><a href="other.html">Other</a></li>
+			<li><a href="updates.html">Updates</a></li>
+			<li><a href="links.html">Links</a></li>
+			</ul>
+		</div>
+		</div>
+
+		<div class="column right">
+		<div class="card">
+			<p>Recently I powered on my HP 141T display section, which contains an HP 8552A IF section and a 8555A RF section. This RF section is something I find really quite amazing, having a input bandwidth between 10 MHz to 18 GHz (which can be extended to 40 GHz with an external mixer). I had hooked the instrument up to my newly acquired HP 8683A, a 2.3 GHz to 6.5 GHz RF source, with the intention of validing the performance after its trip from the US, and the replacement of an exploded RIFA capacitor. However, after I turned on the HP 141T, I noticed the trace was a single point, and smoke began to appear from the instrument. I turned everything off quickly, and so set about determining the cause of this failure. After a thorough visual inspection (figure 1 shows the instrument on my newly constructed lab bench), I discovered only a single instance of damage. This was within the 8555A - this webpage will cover its repair.</p>
+			
+			<a href="hp141t_hp8552a_test_position.jpg"  target="_blank">
+			<img src="hp141t_hp8552a_test_position.jpg" height=200 title="The HP 141T and HP 8552A separated with covers removed."></a>
+			<p>Figure 1: Inspection of the HP 141T and HP 8552A returned no obvious visual faults.</p>
+			
+			<p>Figure 2 shows a top view of the HP 8555A. After inspecting the entire 141T, 8552A and 8555A, the only obvious, visible damage was on the A6 module of the 8555A - component C1 - shown in figure 3.</p>
+
+			<a href="hp8555a_without_a6.jpg"  target="_blank">
+			<img src="hp8555a_without_a6.jpg" height=200 title="A HP 8555A unit outside the HP 141T display unit."></a>
+			<p>Figure 2: The HP 8555A unit, note module A6 has been removed in this image. It normally sits towards the rear of the unit.</p>
+			
+			<a href="hp8555a_a6_damaged_c1.jpg"  target="_blank">
+			<img src="hp8555a_a6_damaged_c1.jpg" height=200 title="Shows the front view of the A6 module, with scorch marks."></a>
+			<p>Figure 3: The HP 8555A A6 module, showing the heavily damaged C1 in the bottom right of the PCB.</p>
+			
+			<p>From page 6-10 of the HP 8555A service manual [1] C1 was identified as a 2.2uF, 10%, 20VDC tantalum capacitor. The HP manufacturer code of 56289 indicated this was a Sprague Electric Co. component, PN: 150D225X9020A2. A bit of googling, however, suggests these components are metallic in appearance, and clearly the component on my PCB is closer to a gold/orange expoy. The module appears to be as new, so I suspect that maybe HP changed the exact part number for this component, as least from the revision of the manual in [1].</p>
+			
+			<p>In the end, I settled for substituting C1 with a 173D225X9025VWE3 from Vishay Sprague. This is a 2.2uF, 10% tantalum capacitor, though rated for a slightly higher 25V.<p>
+			
+			<p>I clipped the damaged capacitor from the PCB, and began gently cleaning the damaged area with isopropyl alcohol. Unfortunately, what I assumed to be the guts of C1 (sprayed over the input choke L1), was actually discolouration of L1 itself. Indeed, such was the heating on L1 (probably over current caused by a shorted C1 - don't you love the shorting failure mode of tantalums?) that it appears that the moulding has split... See figure 4.</p>
+			
+			<a href="hp8555a_a6_damaged_l1.jpg"  target="_blank">
+			<img src="hp8555a_a6_damaged_l1.jpg" height=200 title="Shows a split through-hole choke on the A6 module of the 8555A."></a>
+			<p>Figure 4: The damaged L1 choke on module A6 of the HP 8555A.</p>
+
+			<p>L1 turns out to be a 100uH, 5% choke. The HP manufacturer code of 24226 returns Gowanda Electronics Corp., with a manufacturer's PN: 15/103. It appears that Gowanda stills survives in some form today, though I could find no information on PN: 15/103. However, a bit of careful searching of their current component offerings throws up PN: 15M103J, which is quite close to the original PN. The datasheet [2] specs seem to suggest a good match with the original part, at least with regards to inductance and tolerance, but I've still emailed Gowanda asking if they have any further information on the original part - I will update this page with any response.</p>
+			
+			<p>Of course, my thoughts now turn to what other failures have occured further up and downstream of C1 and L1. From page 8-35 of the 8555A service manual, these components lie on the -12.6V rail from the display unit, and sit on the input of a negative voltage regulator for the logic components on A6. A quick in-circuit multimeter test across CR7 (a 6.81V zener diode) returns about 1.6V - suggesting at least some further damage. I will carefully removed these surrounding components and try to get a -7.0V supply restored on module A6. Fortunately, these parts all seem to be jellybean components, rather than unobtanium.</p>
+			
+			</p>Upstream of C1 and L1, the -12.6V supply from the 141T display unit is configured to blow a fuse, rather than damage any transistors (page 8-4 of the HP 141T Operating & Service Manual [3]). Nice work HP. :)</p>
+			
+			<p>TBC...</p>
+			
+			<p>v1.0: 19/06/2023</p>
+			
+			<h2>REFERENCES</h2>
+			<a href="HP 8555A Spectrum Analyzer RF Section Service Manual.pdf">HP 8555A Spectrum Analyzer RF Section Service Manual</a><br>
+			<a href="Gowanda 15M.pdf">Gowanda 15M Datasheet</a></br>
+			<a href="HP 141T Operating & Service Manual.pdf">HP 141T Operating & Service Manual</a></br>
+			
+		</div>
+	</div>
+	
+	<div class="footer">
+	<p>You can use the information on this website at your own risk. I take <span style="color: red"> no responsibility </span> for damage/harm that results from copying info 
+	from this websites. Companies/organisations are not allowed to use anything from this website to make money/clicks/increase profile,etc.</p>
+	</div>
+
+</body>
+</html>
+
