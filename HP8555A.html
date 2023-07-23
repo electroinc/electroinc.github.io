@@ -74,13 +74,46 @@
 
 			<p>L1 turns out to be a 100uH, 5% choke. The HP manufacturer code of 24226 returns Gowanda Electronics Corp., with a manufacturer's PN: 15/103. It appears that Gowanda stills survives in some form today, though I could find no information on PN: 15/103. However, a bit of careful searching of their current component offerings throws up PN: 15M103J, which is quite close to the original PN. The datasheet [2] specs seem to suggest a good match with the original part, at least with regards to inductance and tolerance, but I've still emailed Gowanda asking if they have any further information on the original part - I will update this page with any response.</p>
 			
-			<p>Of course, my thoughts now turn to what other failures have occured further up and downstream of C1 and L1. From page 8-35 of the 8555A service manual, these components lie on the -12.6V rail from the display unit, and sit on the input of a negative voltage regulator for the logic components on A6. A quick in-circuit multimeter test across CR7 (a 6.81V zener diode) returns about 1.6V - suggesting at least some further damage. I will carefully removed these surrounding components and try to get a -7.0V supply restored on module A6. Fortunately, these parts all seem to be jellybean components, rather than unobtanium.</p>
+			<p>Of course, my thoughts now turn to what other failures have occured further up and downstream of C1 and L1. From page 8-35 of the 8555A service manual, these components lie on the -12.6V rail from the display unit, and sit on the input of a negative voltage regulator for the logic components on A6. I will carefully removed these surrounding components and try to get a -7.0V supply restored on module A6. Fortunately, these parts all seem to be jellybean components, rather than unobtanium.</p>
 			
-			</p>Upstream of C1 and L1, the -12.6V supply from the 141T display unit is configured to blow a fuse, rather than damage any transistors (page 8-4 of the HP 141T Operating & Service Manual [3]). Nice work HP. :)</p>
+			<p>Upstream of C1 and L1, the -12.6V supply from the 141T display unit is configured to blow a fuse, rather than damage any transistors (page 8-4 of the HP 141T Operating & Service Manual [3]). Nice work HP. :)</p>
 			
-			<p>TBC...</p>
+			<p>-----------------------------------------------------</p>
 			
-			<p>v1.0: 19/06/2023</p>
+			<p>I never did hear from Gowanda - so they have earned a big THUMBS DOWN from me.</p>
+			<a href="thumbs_down.png"  target="_blank">
+			<img src="thumbs_down.png"></a>
+			
+			<p>I ended up ordering a suitable inductor from LCSC - PN: XR0410-101, made by Dongguan Xiangru Electronics Co. Ltd, a 100uH +-10% componet. Now HP have absorbed another nation into this design. :DDDD Whilst waiting for this to arrive, I set about testing the logic power supply circuit as shown in figure 5. Note the logic ICs used on this board are driven at -7V (VCC) and -12.6V (VSS) to create the ~ +5V supply voltage.</p>
+
+			<a href="hp8555a_a6_schematic_power_test.png"  target="_blank">
+			<img src="hp8555a_a6_schematic_power_test.png" height=200 title="Shows a schematic, indicating the points where the power supply and multimeter were connected."></a>
+			<p>Figure 5: Test schematic - green arrow indicates the point where -12.6V was applied from an HP E3631A, and the red arrow indicates where a voltage reading was from from a Fluke 15B+. Both instruments were referenced to GND.</p>
+			
+			<p>As shown in figure 6, the power supply appeared in good health, with a 4.96 potential difference between input and output.</p>
+			
+			<a href="hp8555a_a6_power_test.jpg"  target="_blank">
+			<img src="hp8555a_a6_power_test.jpg" height=200 title="A photo of the test setup to measure the logic voltage regulator for A6 assembly."></a>
+			<p>Figure 6: Test setup for measuring the output form the logic voltage regulator.</p>
+			
+			<p>From these results I was confident nothing else had failed downstream of the supply. I replaced the damaged inductor (shown in figure 7), and replaced the assembly into the 8555A unit (figure 8).</p>
+			
+			<a href="hp8555a_a6_repaired.jpg"  target="_blank">
+			<img src="hp8555a_a6_repaired.jpg" height=200 title="Photo of the repaired A6 assembly, with new inductor and capacitor."></a>
+			<p>Figure 7: Repaired A6 assembly, with new C1 and L1.</p>
+			
+			<a href="hp8555a_a6_replaced.jpg"  target="_blank">
+			<img src="hp8555a_a6_replaced.jpg" height=200 title="Top view of an opened 8555A with A6 assembly replaced."a>
+			<p>Figure 8: View of the A6 assembly replaced within the 8555A.</p>
+			
+			<p>The unit was, in turn, placed back into the 141T display unit mainframe. I applied power, and the unit now functions! As a sneak preview of a future project, I include an image showing a test performed using an HP 8683A 2.3 GHz - 6.5 GHz signal generator in figure 9. It is fun using the transfer storage CRT, though I think I will create a digital synthesiser utilising the pen plot output for more 'serious' measurement and analysis capability. These CRT are easy to damage, and it would be wise to create a digital backup option before this bites the dust.</p>
+			
+			<a href="hp8555a_test.jpg"  target="_blank">
+			<img src="hp8555a_test.jpg" height=200 title="Photo of a HP 141T spectrum analyser with a HP 8683A signal generator on top. The 141T is fully functional."></a>
+			<p>Figure 9: Successful verification of operation of the 141T and 8683A. What experiments will this be used for?</p>
+			
+			<p>v1.0: 19/06/2023</br>
+			v1.1: 23/07/2023</p>
 			
 			<h2>REFERENCES</h2>
 			<a href="HP 8555A Spectrum Analyzer RF Section Service Manual.pdf">HP 8555A Spectrum Analyzer RF Section Service Manual</a><br>
